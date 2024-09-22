@@ -19,12 +19,4 @@ class CoreAccessor(BaseAccessor):
         self._thread_executor.shutdown(wait=True)
 
     async def send_email(self, type_of_email: Literal["Create", "Delete"], employee_email: EmailStr, employer_email: EmailStr, creator_name: str, task_name: str) -> None:
-        await self._loop.run_in_executor(
-            self._thread_executor,
-            send_task,
-            type_of_email,
-            employee_email,
-            employer_email,
-            creator_name,
-            task_name
-        )
+        await send_task(type_of_email, employee_email, employer_email, creator_name, task_name)
