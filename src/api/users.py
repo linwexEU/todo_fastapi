@@ -7,6 +7,7 @@ from src.api.dependencies import users_service
 from src.auth.auth import authenticate_user, create_access_token, get_password_hash
 from src.config import settings
 from src.logger import config_logger
+from src.utils.exceptions import UserEmailHasAlreadyExist, UserNameHasAlreadyExist
 import logging
 
 
@@ -33,10 +34,10 @@ async def users_registration(
 ) -> UsersRegistationResponse: 
     user = await users_service.get_by_filters(UsersFilters(username=data.username))
     if user:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT)
+        raise UserNameHasAlreadyExist
     existed_emails = await users_service.get_existed_emails() 
     if data.email in existed_emails: 
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT)
+        raise UserEmailHasAlreadyExist
                     
     try:
         await users_service.add(UsersAdd(
