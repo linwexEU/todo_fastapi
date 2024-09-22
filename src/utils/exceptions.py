@@ -62,3 +62,14 @@ class CantCreateTaskForEmployee(BaseException):
 class NotYourTask(BaseException):
     status_code = status.HTTP_400_BAD_REQUEST
     detail = "This task don't belong to you"
+
+
+class UserNameHasAlreadyExist(BaseException): 
+    status_code = status.HTTP_409_CONFLICT 
+    detail = "User with this NAME already exist"
+
+
+class UserEmailHasAlreadyExist(BaseException): 
+    status_code = status.HTTP_409_CONFLICT 
+    detail = "User with this EMAIL already exist"
+
