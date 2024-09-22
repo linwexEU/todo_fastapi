@@ -25,7 +25,4 @@ async def send_task(
             routing_key="email_queue"
         )
 
-        if type_of_email == "Create":
-            logger.info("Email was sent")
-        else: 
-            logger.info("Email was deleted")
+        logger.info("Email was sent")
